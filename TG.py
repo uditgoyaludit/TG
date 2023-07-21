@@ -21,7 +21,7 @@ from telegram.ext import CallbackContext
 from telegram.ext import CommandHandler  
 from telegram.ext import MessageHandler  
 from telegram.ext import filters as Filters
-the_updater = Updater("6301436964:AAFVfTkNLcmmS9VEuaf9Lm_OBMYu5ae9bTw",use_context = True)  
+the_updater = Updater("6301436964:AAEda-LqpSgze8NRYCrE4XyUvKnsPraCbfo",use_context = True)  
 
     
 def get_full_response(url):
