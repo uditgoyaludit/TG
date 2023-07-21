@@ -1,6 +1,1 @@
-pip install requests
-pip install licensing
-pip install numpy
-pip install opencv-python
-pip install tabulate
-pip install python-telegram-bot==13.0
+pip3 install requests licensing numpy opencv-python tabulate python-telegram-bot==13.0
