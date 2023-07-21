@@ -182,10 +182,12 @@ def marks(update:Update,context:CallbackContext):
 
 
 
-
+def marks(update:Update,context:CallbackContext):
+     update.message.reply_text("Hi")
 the_updater.dispatcher.add_handler(CommandHandler('student', student))
 the_updater.dispatcher.add_handler(CommandHandler('attandance', print_attendance))
 the_updater.dispatcher.add_handler(CommandHandler('marks', marks))
+the_updater.dispatcher.add_handler(CommandHandler('start', start))
 
 
 
