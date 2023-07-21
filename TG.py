@@ -2,8 +2,6 @@ import os
 import json
 import base64
 import requests
-from licensing.models import *
-from licensing.methods import Key, Helpers
 import numpy as np
 import cv2
 from tabulate import tabulate
