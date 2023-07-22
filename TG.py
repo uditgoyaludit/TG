@@ -2,18 +2,6 @@ import os
 import json
 import base64
 import requests
-import numpy as np
-import cv2
-from tabulate import tabulate
-import json as jsond 
-import time  
-import binascii 
-from uuid import uuid4  
-import platform  
-import subprocess  
-import hmac 
-import sys
-import hashlib
 import random
 from telegram.ext import Updater  
 from telegram import Update  
@@ -21,7 +9,7 @@ from telegram.ext import CallbackContext
 from telegram.ext import CommandHandler  
 from telegram.ext import MessageHandler  
 from telegram.ext import filters as Filters
-the_updater = Updater("6301436964:AAEda-LqpSgze8NRYCrE4XyUvKnsPraCbfo",use_context = True)  
+the_updater = Updater("6301436964:AAHGC8tANXcTmbGohHrlbOKL4wJv01fi_Hk",use_context = True)  
 
     
 def get_full_response(url):
@@ -64,57 +52,57 @@ def student(update:Update,context:CallbackContext):
         if update.message.chat.username=="Udit9911":
                 erp=update.message.text[9:]
                 if erp.lower()==baap.lower():
-                    print("Owner ki ID Search Krega")
+                    update.message.reply_text("Owner ki ID Search Krega")
+                else:    
+                    url = f"https://www.bvimrcampus.com/BVIMRService/BVIMRServiceAnd.asmx/fn_Profile?UserID={erp}&UserType=Student"
+
+                    response = get_full_response(url)
+                    response_data = response.text
+                    pic = json.loads(response.text)
+
+
                     
-                url = f"https://www.bvimrcampus.com/BVIMRService/BVIMRServiceAnd.asmx/fn_Profile?UserID={erp}&UserType=Student"
-
-                response = get_full_response(url)
-                response_data = response.text
-                pic = json.loads(response.text)
-
-
-                   
 
 
 
 
-                parsed_response = json.loads(response_data)
+                    parsed_response = json.loads(response_data)
 
 
-                if parsed_response["Status"] == "1":
-                    profiles = parsed_response["Details"]
-                    picture = pic["Details"][0]["Picture"]
+                    if parsed_response["Status"] == "1":
+                        profiles = parsed_response["Details"]
+                        picture = pic["Details"][0]["Picture"]
 
-                    for profile in profiles:
-                        reply=        f'''Name:{profile["Name"]
-                        }\nProgram:{ profile["Program"]
-                        }\nBranch:{ profile["Branch"]
-                        }\nSemester:{ profile["Semester"]
-                        }\nFatherName:{ profile["FatherName"]
-                        }\nFatherMobile:{ profile["FatherMobile"]
-                        }\nInstitute:{ profile["Institute"]
-                        }\nDOB:{ profile["DOB"]
-                        }\nStudent eMail:{ profile["Student eMail"]
-                        }\nStudent Mobile:{ profile["Student Mobile"]
-                        }\nPer. Address:{ profile["Per. Address"]
-                        }\nCorr Address:{ profile["Corr Address"]
-                        }\n AdmNo:{ profile["AdmNo"]
-                      } adm_gender:{ profile["adm_gender"]
-                     } Batch:{ profile["Batch"]
-                     } Aadhaar No:{ profile["Aadhaar No"]
-                     } Proxy used = {proxy}'''
-                        update.message.reply_text(reply)
-                        try:
-                            decoded_image_data = base64.b64decode(picture)
-                            with open('temp_image.png', 'wb') as f:
-                                f.write(decoded_image_data)
-                                with open('temp_image.png', 'rb') as f:
-                                    update.message.bot.send_photo(update.message.chat_id,f)
-                            os.remove('temp_image.png')
-                        except Exception as e:
-                            print("Error:", e)
-                else:
-                    update.message.reply_text("No record found.")
+                        for profile in profiles:
+                            reply=        f'''Name:{profile["Name"]
+                            }\nProgram:{ profile["Program"]
+                            }\nBranch:{ profile["Branch"]
+                            }\nSemester:{ profile["Semester"]
+                            }\nFatherName:{ profile["FatherName"]
+                            }\nFatherMobile:{ profile["FatherMobile"]
+                            }\nInstitute:{ profile["Institute"]
+                            }\nDOB:{ profile["DOB"]
+                            }\nStudent eMail:{ profile["Student eMail"]
+                            }\nStudent Mobile:{ profile["Student Mobile"]
+                            }\nPer. Address:{ profile["Per. Address"]
+                            }\nCorr Address:{ profile["Corr Address"]
+                            }\n AdmNo:{ profile["AdmNo"]
+                        } adm_gender:{ profile["adm_gender"]
+                        } Batch:{ profile["Batch"]
+                        } Aadhaar No:{ profile["Aadhaar No"]
+                        } Proxy used = {proxy}'''
+                            update.message.reply_text(reply)
+                            try:
+                                decoded_image_data = base64.b64decode(picture)
+                                with open('temp_image.png', 'wb') as f:
+                                    f.write(decoded_image_data)
+                                    with open('temp_image.png', 'rb') as f:
+                                        update.message.bot.send_photo(update.message.chat_id,f)
+                                os.remove('temp_image.png')
+                            except Exception as e:
+                                print("Error:", e)
+                    else:
+                        update.message.reply_text("No record found.")
     else:
          
          update.message.reply_text( "Enter Username Also")
@@ -180,15 +168,20 @@ def marks(update:Update,context:CallbackContext):
     except:
         update.message.reply_text("error")
 
-
-
 def start(update:Update,context:CallbackContext):
-     update.message.reply_text("Hi")
+    if update.message.chat.username=="Udit9911":
+        update.message.reply_text("Hi sir you can access the details !!!")
+    else:
+        update.message.reply_text("Hi Ask Owner For Bot Access  !!!")
+
+
+
+
+
 the_updater.dispatcher.add_handler(CommandHandler('student', student))
 the_updater.dispatcher.add_handler(CommandHandler('attandance', print_attendance))
 the_updater.dispatcher.add_handler(CommandHandler('marks', marks))
 the_updater.dispatcher.add_handler(CommandHandler('start', start))
-
 
 
   
